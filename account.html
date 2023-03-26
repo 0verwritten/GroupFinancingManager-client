@@ -1,35 +1,60 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Account Page</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <div class="container">
-      <header>
-        <h1>Account Page</h1>
-      </header>
-      <main>
-        <section class="user-info">
-          <h2>User Info</h2>
-          <p>Name: John Doe</p>
-          <p>Email: john.doe@gmail.com</p>
-          <p>Balance: $1,000</p>
-        </section>
-        <section class="groups">
-          <h2>Groups</h2>
-          <ul>
-            <li><a href="#">Group 1</a></li>
-            <li><a href="#">Group 2</a></li>
-            <li><a href="#">Group 3</a></li>
-          </ul>
-        </section>
-      </main>
-      <footer>
-        <p>&copy; 2023 Budget Management App. All rights reserved.</p>
-      </footer>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Account Page</title>
+  <link rel="stylesheet"
+        href="css/main.css">
+  <link rel="stylesheet"
+        href="styles.css">
+</head>
+
+<body>
+  <div class="sidebar-container">
+    <div class="sidebar">
+      <div class="logo">
+        <img src="./imgs/another_one.svg" alt="logo" />
+      </div>
+      <ul class="links">
+        <li><a href="/account.html">Profile</a></li>
+        <li><a href="/group.html">Groups</a></li>
+        <li><a href="/graph.html">Graph</a></li>
+        <li><a href="/settings.html">Settings</a></li>
+        <li><a href="/index.html">Log out</a></li>
+      </ul>
+      <button class="toggle-button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
-  </body>
+  </div>
+  <div class="container">
+    <header>
+      <h1>Account Page</h1>
+    </header>
+    <section class="settings_info_block">
+      <h2>User Info</h2>
+      <div class="w-fit grid grid-col-template-2 gap-2">
+      <p>Name:</p><p>John Doe</p>
+      <p>Email:</p><p>john.doe@gmail.com</p>
+      <p>Balance:</p><p>$1,000</p>
+      </div>
+    </section>
+    <section class="settings_info_block">
+      <h2>Groups</h2>
+      <ul>
+        <li><a href="#">Group 1</a></li>
+        <li><a href="#">Group 2</a></li>
+        <li><a href="#">Group 3</a></li>
+      </ul>
+    </section>
+    <footer>
+      <p>&copy; 2023 Budget Management App. All rights reserved.</p>
+    </footer>
+  </div>
+  <script src="./js/main.js"></script>
+</body>
+
 </html>

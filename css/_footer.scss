@@ -1,12 +1,20 @@
 // Footer Styles
-footer {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid #ccc;
-  
-    p {
-      font-size: 1.4rem;
-      color: #777;
-    }
+.footer {
+  margin-left: 1rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  // border-top: 1px solid #/*  */ccc;
+
+}
+
+.footer__paragraph {
+  font-size: 1.4rem;
+  color: #777;
+}
+
+footer{
+  @extend .footer;
+  footer > p {
+    @extend .footer__paragraph;
   }
-  
+}

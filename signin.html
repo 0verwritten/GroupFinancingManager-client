@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Sign In</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <div class="container">
-      <header>
-        <h1>Sign In</h1>
-      </header>
-      <main>
-        <form>
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" required>
 
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required>
+<head>
+  <meta charset="UTF-8">
+  <title>Sign In</title>
+  <link rel="stylesheet"
+        href="./css/main.css">
+</head>
 
-          <button type="submit">Sign In</button>
-        </form>
-        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
-      </main>
-      <footer>
-        <p>&copy; 2023 Budget Management App. All rights reserved.</p>
-      </footer>
-    </div>
-  </body>
+<body>
+  <div class="container form-container">
+    <h1>Sign In</h1>
+    
+    <form class="form-control" action="./account.html">
+      <input class="text-input"
+             placeholder="Username"
+             type="text"
+             id="username"
+             name="username"
+             required>
+      <input class="text-input"
+             placeholder="Password"
+             type="password"
+             id="password"
+             name="password"
+             required>
+      <button type="submit"
+              class="btn-submit">Sign In</button>
+    </form>
+    <p class="form_hint">Don't have an account?
+      <a href="signup.html">Sign Up</a>
+      or
+      <a href="./index.html">Go back</a>
+    </p>
+  </div>
+</body>
+
 </html>

@@ -1,37 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-    <div class="container">
-      <header>
-        <h1>Sign Up</h1>
-      </header>
-      <main>
-        <form>
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" required>
 
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <link rel="stylesheet"
+        href="./css/main.css">
+</head>
 
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" required>
+<body>
+  <div class="container form-container">
+    <h1>Sign Up</h1>
+    <form class="form-control">
+      <input class="text-input"
+             placeholder="Name"
+             type="text"
+             id="name"
+             name="name"
+             required>
+      <input class="text-input"
+             placeholder="Email"
+             type="email"
+             id="email"
+             name="email"
+             required>
+      <input class="text-input"
+             placeholder="Username"
+             type="text"
+             id="username"
+             name="username"
+             required>
+      <input class="text-input"
+             placeholder="Password"
+             type="password"
+             id="password"
+             name="password"
+             required>
+      <button type="submit"
+              class="btn-submit">Sign Up</button>
+    </form>
+    <p class="form_hint">Already have an account?
+      <a href="signin.html">Sign In</a>
+      or
+      <a href="./index.html">Go back</a>
+    </p>
+  </div>
+</body>
 
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required>
-
-          <button type="submit">Sign Up</button>
-        </form>
-        <p>Already have an account? <a href="signin.html">Sign In</a></p>
-      </main>
-      <footer>
-        <p>&copy; 2023 Budget Management App. All rights reserved.</p>
-      </footer>
-    </div>
-  </body>
 </html>
