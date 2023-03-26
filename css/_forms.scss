@@ -1,0 +1,24 @@
+// Form Styles
+form {
+    display: flex;
+    flex-direction: column;
+  
+    label {
+      margin-bottom: 0.5rem;
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
+  
+    input {
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      font-size: 1.6rem;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+  
+    button[type="submit"] {
+      margin-top: 1rem;
+    }
+  }
+  
