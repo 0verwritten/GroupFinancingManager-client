@@ -11,30 +11,42 @@
 <body>
   <div class="container form-container">
     <h1>Sign Up</h1>
-    <form class="form-control">
+    <form class="form-control"
+          id="signup">
       <input class="text-input"
-             placeholder="Name"
+             placeholder="First name"
              type="text"
-             id="name"
-             name="name"
+             name="first_name"
+             required>
+      <input class="text-input"
+             placeholder="Last name"
+             type="text"
+             name="last_name"
              required>
       <input class="text-input"
              placeholder="Email"
              type="email"
-             id="email"
              name="email"
+             required>
+      <input class="text-input"
+             placeholder="Card Number"
+             type="text"
+             name="card_number"
              required>
       <input class="text-input"
              placeholder="Username"
              type="text"
-             id="username"
              name="username"
              required>
       <input class="text-input"
              placeholder="Password"
              type="password"
-             id="password"
              name="password"
+             required>
+      <input class="text-input"
+             placeholder="Repeat Password"
+             type="password"
+             name="repassword"
              required>
       <button type="submit"
               class="btn-submit">Sign Up</button>

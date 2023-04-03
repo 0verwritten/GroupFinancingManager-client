@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Account Page</title>
+  <title>Group Page</title>
   <link rel="stylesheet"
         href="css/main.css">
   <link rel="stylesheet"
@@ -14,7 +14,8 @@
   <div class="sidebar-container">
     <div class="sidebar">
       <div class="logo">
-        <img src="./imgs/another_one.svg" alt="logo" />
+        <img src="./imgs/another_one.svg"
+             alt="logo" />
       </div>
       <ul class="links">
         <li><a href="./account.html">Profile</a></li>
@@ -33,22 +34,17 @@
   </div>
   <div class="container">
     <header>
-      <h1>Account Page</h1>
+      <h1>Create group</h1>
     </header>
-    <section class="settings_info_block">
-      <h2>User Info</h2>
-      <div class="w-fit grid grid-col-template-2 gap-2" id="account-profile">
-      <p>Name:</p><p id="name">Loading...</p>
-      <p>Email:</p><p id="email">Loading...</p>
-      <p>Card number:</p><p id="card-number">Loading...</p>
-      </div>
-    </section>
-    <section class="settings_info_block">
-      <h2>Groups</h2>
-      <ul id="group-list">
-        Loading...
-      </ul>
-    </section>
+    <main>
+      <form class="form-control w-fit" id="new-group">
+        <input placeholder="Group name"
+               type="text"
+               name="name" />
+        <button type="submit"
+                class="btn-submit">Create</button>
+      </form>
+    </main>
     <footer>
       <p>&copy; 2023 Budget Management App. All rights reserved.</p>
     </footer>
