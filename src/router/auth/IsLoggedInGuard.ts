@@ -1,5 +1,5 @@
 import { authStore, useAuthStore } from "@/stores/authorization";
-import type { NavigationGuardWithThis, RouteLocationNamedRaw } from "vue-router";
+import { NavigationGuardWithThis, RouteLocationNamedRaw } from "vue-router";
 
 export const requireAuthFlag = { requiresAuth: true };
 

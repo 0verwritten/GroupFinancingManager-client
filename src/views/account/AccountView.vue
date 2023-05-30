@@ -43,25 +43,29 @@ let email = 'Loading...'
 let group_list: GroupShortInfo[] = []
 
 const apiClient = inject<AccountClientService>('accountClient')!
-{
-  const response = await apiClient.getUserProfile()
-  if (!response.isOk()) {
-    console.error(response.error)
-  } else {
-    const data = response.data
-    first_name = data.first_name
-    last_name = data.last_name
-    email = data.email
+const fetchData = async () => {
+  {
+    const response = await apiClient.getUserProfile()
+    if (!response.isOk()) {
+      console.error(response.error)
+    } else {
+      const data = response.data
+      first_name = data.first_name
+      last_name = data.last_name
+      email = data.email
+    }
   }
-}
 
-{
-  const response = await apiClient.getGroupsList()
-  if (!response.isOk()) {
-    console.error(response.error)
-  } else {
-    const data = response.data
-    group_list = data
+  {
+    const response = await apiClient.getGroupsList()
+    if (!response.isOk()) {
+      console.error(response.error)
+    } else {
+      const data = response.data
+      group_list = data
+    }
   }
-}
+};
+
+fetchData();
 </script>

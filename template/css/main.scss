@@ -1,10 +1,6 @@
 // Main Style File
 @charset "UTF-8";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 $primary-dark: (
   900: #00202e,
   800: #003f5c,
@@ -29,10 +25,10 @@ $primary: $primary-dark;
 
 :root {
   @each $name, $color in $primary {
-    $keyname: '--primary-' + $name;
+    $keyname: "--primary-" + $name;
     #{$keyname}: #{$color};
     #{'primary-' + $name}: #{$color};
-  }
+  };
 }
 
 // Import All SCSS Files
@@ -41,20 +37,16 @@ $primary: $primary-dark;
   color: var(--primary-600);
 }
 
-#app {
-  display: flex;
-}
+@import "reset";
+@import "variables";
+@import "global";
 
-@import 'reset';
-@import 'variables';
-@import 'global';
+@import "footer";
+@import "header";
+@import "navbar";
+@import "forms";
+@import "account";
 
-@import 'footer';
-@import 'header';
-@import 'navbar';
-@import 'forms';
-@import 'account';
-
-@import 'home';
-@import 'graph';
-@import 'group';
+@import "home";
+@import "graph";
+@import "group";

@@ -23,8 +23,8 @@
         >
           <TheButton
             :type="TheButtonType.Secondary"
-            @click.prevent="handleKickUser(user.id)"
-            class="h-fit"
+            @click="handleKickUser(user.id)"
+            class="leading-6"
           >
             X
           </TheButton>
@@ -32,7 +32,7 @@
         </div>
         <div v-if="groupData.members && !groupData.members?.length">No users</div>
         <hollow-dots-spinner
-          v-if="!groupData.members || true"
+          v-if="!groupData.members"
           :animation-duration="1000"
           :dot-size="15"
           :dots-num="3"
