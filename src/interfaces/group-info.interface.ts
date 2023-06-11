@@ -4,4 +4,6 @@ export interface Group {
   id: number
   members: UserProfile[]
   name: string
+  secret_code?: string
+  is_owner: boolean
 }

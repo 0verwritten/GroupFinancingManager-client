@@ -3,7 +3,6 @@
     :is="tag"
     v-bind="passProps"
     :class="['btn', buttonClass]"
-    @click="handleClick"
   >
     <slot v-if="!isLoading"></slot>
     <hollow-dots-spinner
@@ -43,11 +42,6 @@ export default defineComponent({
   computed: {
     buttonClass(): string {
       return `btn-${this.type}`
-    },
-  },
-  methods: {
-    handleClick(): void {
-      this.$emit('click')
     },
   },
   components: { HollowDotsSpinner },

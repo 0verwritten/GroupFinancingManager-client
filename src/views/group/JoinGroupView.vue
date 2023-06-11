@@ -1,7 +1,6 @@
 <template>
   <header>
     <h1>Join group</h1>
-    >
   </header>
   <main>
     <section class="flex">
@@ -23,7 +22,7 @@
           :is-loading="isLoading"
           class="btn-submit"
         >
-          Sign In
+          Join
         </TheButton>
       </form>
     </section>
@@ -47,9 +46,10 @@ const groupClient = inject<GroupClientService>('groupClient')!
 const submit = () => {
     isLoading = true;
     groupClient.joinGroup(secret_code).then((response) => {
-        console.log(response)
         isLoading = false;
-        router.push({ name: 'group', 'params': { id: response.data } })
+        if(response.status == 200) {
+          router.push({ name: 'group', params: { id: response.data } })
+        }
     })
 
 }

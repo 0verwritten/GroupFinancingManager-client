@@ -1,7 +1,6 @@
 <template>
     <header>
-      <h1>Join group</h1>
-      >
+      <h1>Create group</h1>
     </header>
     <main>
       <section class="flex">
@@ -23,7 +22,7 @@
             :is-loading="isLoading"
             class="btn-submit"
           >
-            Sign In
+            Create
           </TheButton>
         </form>
       </section>
@@ -49,8 +48,6 @@
       groupClient.createGroup(group_name).then((response) => {
           console.log(response)
           isLoading = false;
-          alert(response.data.secret_key);
-          console.log(response.data.secret_key);
           router.push({ name: 'group', 'params': { id: response.data.id } })
       })
   

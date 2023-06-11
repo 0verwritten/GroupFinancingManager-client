@@ -10,7 +10,8 @@ import { AccountClientService } from './services/account-client.service';
 import { ApiService } from './services/api-base';
 import { configRouter } from './router/config';
 import { GroupClientService } from './services/group-client.service';
-
+import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const app = createApp(App)
 
@@ -21,6 +22,7 @@ const apiService = new ApiService(
     authStore
 );
 
+
 app.provide(authStoreKey, authStore);
 app.provide('authClient', new AuthClientService(apiService));
 app.provide('accountClient', new AccountClientService(apiService));
@@ -29,5 +31,9 @@ app.provide('groupClient', new GroupClientService(apiService));
 configRouter(router);
 
 app.use(router)
+
+app.use(Vue3Toastify, {
+  autoClose: 3000,
+} as ToastContainerOptions);
 
 app.mount('#app')

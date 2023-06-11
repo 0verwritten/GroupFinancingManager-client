@@ -1,6 +1,16 @@
 <template>
   <header>
-    <h1>Group Name (3 members)</h1>
+    <h1>
+      Group Name 
+      <span v-if="groupData.members?.length">
+        ({{ groupData.members?.length }} members)
+      </span>
+    </h1>
+    <a    class="settings-btn cursor-pointer"
+          v-if="groupData?.secret_code"
+          @click.prevent="copySecret()"
+        >(Copy secret code)
+    </a>
     <!-- <a
       href="./group-settings.html"
       class="settings-btn"
@@ -9,6 +19,7 @@
     <a
       href="./group-settings.html"
       class="settings-btn"
+      v-if="groupData?.is_owner"
       @click.prevent="deleteGroup()"
       >Видалити</a
     >
@@ -18,11 +29,12 @@
       <h2>Users:</h2>
       <ul class="flex flex-col gap-3">
         <div
-          v-for="user in (groupData ?? []).members"
+          v-for="user in groupData?.members"
           :key="user.id"
         >
           <TheButton
             :type="TheButtonType.Secondary"
+            v-if="groupData.members?.length > 1 && groupData?.is_owner"
             @click="handleKickUser(user.id)"
             class="leading-6"
           >
@@ -58,37 +70,47 @@
   <AllRightsReserved />
 </template>
 <script setup lang="ts">
+import { toast } from 'vue3-toastify';
 import AllRightsReserved from '@/components/AllRightsReserved.vue'
 import type { GroupClientService } from '@/services/group-client.service'
 import type { Group } from '@/interfaces/group-info.interface'
 import { HollowDotsSpinner } from 'epic-spinners'
 import { useRoute } from 'vue-router'
-import { inject, ref, watch } from 'vue'
+import { inject, ref } from 'vue'
 import TheButton from '@/components/reusable/TheButton/TheButton.vue'
 import { TheButtonType } from '@/components/reusable/TheButton/TheButtonType.model'
 import router from '@/router'
+import { authStore } from '@/stores/authorization'
 
 const groupClient = inject<GroupClientService>('groupClient')!
 const route = useRoute()
-let groupData = ref({} as Group)
+let groupData = ref({members: []} as Group)
 
-watch(groupData, (val) => {
-  console.log(val, 'update')
-})
 
 groupClient.getGroupInfo(parseInt(route.params.id as string)).then((response) => {
   if (!response.isOk()) {
-    console.error(response.error)
+    router.push({ name: 'account' })
   } else {
     groupData.value = response.data
-    console.log(groupData)
   }
 })
 
-const handleKickUser = async (user_id: number) => {
-  groupClient.kickUser(groupData.value.id, [user_id])
+const handleKickUser = (user_id: number) => {
+  if(user_id == authStore().getUser['user_id']) {
+    toast.error("You cannot delete yourself !");
+    return;
+  }
+  
+  groupClient.kickUser(groupData.value.id, [user_id]).then(() => {
+    groupData.value.members = groupData.value.members.filter((user) => user.id !== user_id)
+    toast.success("Deleted Successful !");
 
-  groupData.value.members = groupData.value.members.filter((user) => user.id !== user_id)
+  })
+}
+
+const copySecret = () => {
+  navigator.clipboard.writeText(groupData.value.secret_code)
+  toast.success('Secret code copied to clipboard');
 }
 
 const deleteGroup = () => {

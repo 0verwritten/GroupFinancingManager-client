@@ -34,9 +34,9 @@
     </form>
     <p class="form_hint">
       Don't have an account?
-      <a href="signup.html">Sign Up</a>
+      <router-link to="register">Sign Up</router-link>
       or
-      <a href="./index.html">Go back</a>
+      <router-link to="/">Go back</router-link>
     </p>
   </DialogContainer>
 </template>
@@ -81,7 +81,7 @@ export default defineComponent({
         return;        
       }
       this.error = '';
-      // this.authStore!().setTokens(response.data);
+      this.authStore!().setTokens(response.data);
       router.push({ path: '/app' });
     },
   },

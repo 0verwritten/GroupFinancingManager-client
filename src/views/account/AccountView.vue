@@ -5,8 +5,8 @@
   <section class="settings_info_block">
     <h2>User Info</h2>
     <div class="w-fit flex flex-col gap-2">
-      <p>Name: {{ first_name }} {{ last_name }}</p>
-      <p>Email: {{ email }}</p>
+      <p>Name: {{ first_name && last_name ? first_name + ' ' + last_name : 'Loading...' }}</p>
+      <p>Email: {{ email ?? 'Loading...' }}</p>
     </div>
   </section>
   <section class="settings_info_block">
@@ -36,11 +36,12 @@ import TheRoutedButton from '@/components/reusable/TheRoutedButton/TheRoutedButt
 import { TheButtonType } from '@/components/reusable/TheButton/TheButtonType.model'
 import type { GroupShortInfo } from '@/interfaces/group-short-info.interface'
 import { inject, nextTick } from 'vue'
+import { ref } from 'vue'
 
-let first_name = 'Loading...'
-let last_name = 'Loading...'
-let email = 'Loading...'
-let group_list: GroupShortInfo[] = []
+const first_name = ref('')
+const last_name = ref('')
+const email = ref('')
+const group_list = ref<GroupShortInfo[]>([]);
 
 const apiClient = inject<AccountClientService>('accountClient')!
 const fetchData = async () => {
@@ -54,9 +55,9 @@ const fetchData = async () => {
       console.error(response.error)
     } else {
       const data = response.data
-      first_name = data.first_name
-      last_name = data.last_name
-      email = data.email
+      first_name.value = data.first_name
+      last_name.value = data.last_name
+      email.value = data.email
     }
   }
   {
@@ -65,12 +66,10 @@ const fetchData = async () => {
       console.error(response.error)
     } else {
       const data = response.data
-      group_list = data
+      group_list.value = data
     }
   }
 };
 
-nextTick(async () => {
-  return fetchData()
-})
+nextTick(() => fetchData());
 </script>

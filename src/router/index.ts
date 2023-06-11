@@ -49,13 +49,11 @@ const router = createRouter({
         {
           path: 'register',
           name: 'signUp',
-          redirect: { name: 'home' },
-        //   component: () => import('../views/LoginView.vue'),
+          component: () => import('../views/auth/signUp.vue'),
         },
         {
           path: 'login',
           name: 'signIn',
-          // redirect: { name: 'home' },
           component: () => import('../views/auth/signIn.vue'),
         },
       ],

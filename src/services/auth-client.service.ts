@@ -9,8 +9,8 @@ export class AuthClientService {
     public login(username: string, password: string): Promise<ApiResponse<Token>> {
         return this.apiClient.post('/user/login', { username, password })
     }
-    public register(username: string, password: string): Promise<ApiResponse<CreateUserProfile>> {
-        return this.apiClient.post('/auth/register', { username, password })
+    public register(data: CreateUserProfile): Promise<ApiResponse<CreateUserProfile>> {
+        return this.apiClient.post('/user', data)
     }
     public logout(): Promise<ApiResponse<null>> {
         return this.apiClient.get('/auth/logout')
