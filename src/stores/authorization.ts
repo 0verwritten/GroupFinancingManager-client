@@ -52,8 +52,8 @@ export const provideAuthStore = () => {
 
 export const useAuthStore = () => {
   const store = inject(authStoreKey);
-  // if (!store) {
-  //   throw new Error('useAuthStore must be used within a component that has provided AuthStore.');
-  // }
+  if (!store) {
+    throw new Error('useAuthStore must be used within a component that has provided AuthStore.');
+  }
   return store;
 };

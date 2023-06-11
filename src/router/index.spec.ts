@@ -1,7 +1,84 @@
 import { createRouter, createWebHistory } from 'vue-router';
+
 import { IsLoggedInGuard, requireAuthFlag } from '@/router/auth/IsLoggedInGuard';
 import MainLayout from '@/views/MainLayout.vue';
+import HomeView from '../views/HomeView.vue'
+import App from '@/App.vue';
+import sinon from 'sinon'
 import router from '@/router/index';
+
+import { describe, it, expect, beforeEach } from 'vitest';
+import { mount } from '@vue/test-utils';
+import AboutViewVue from '@/views/AboutView.vue';
+import { createTestingPinia } from '@pinia/testing';
+import signInVue from '@/views/auth/signIn.vue';
+import { provideAuthStore, useAuthStore } from '@/stores/authorization';
+
+beforeEach(() => {
+  provideAuthStore();
+})
+
+describe('Router', () => {
+  it('navigates to home view when accessing /', async () => {
+    const app = mount(App, {
+      global: {
+        plugins: [router],
+      },
+    });
+
+    await router.push('/');
+    await router.isReady();
+
+    expect(app.findComponent(HomeView).exists()).toBe(true);
+  });
+
+  it('navigates to about view when accessing /about unauthorized', async () => {
+    const app = mount(App, {
+      global: {
+        plugins: [router],
+      },
+      plugins: [
+        createTestingPinia({
+          createSpy: sinon.spy, // use sinon's spy to wrap actions
+          stubActions: false,
+        }),
+      ],      
+    });
+
+    await router.push('/about');
+    await router.isReady();
+
+    expect(app.findComponent(signInVue).exists()).toBe(true);
+  });
+
+
+  it('navigates to about view when accessing /about', async () => {
+    const app = mount(App, {
+      global: {
+        plugins: [router],
+      },
+      plugins: [
+        createTestingPinia({
+          createSpy: sinon.spy, // use sinon's spy to wrap actions
+          stubActions: false,
+        }),
+      ],      
+    });
+    const store = useAuthStore();
+    console.log(store)
+    // store().setTokens({ accessToken: 'test', refreshToken: 'test' });
+
+    await router.push('/about');
+    await router.isReady();
+
+    console.log(app.html());
+
+    expect(app.findComponent(AboutViewVue).exists()).toBe(true);
+  });
+
+  // More test cases...
+});
+
 
 describe('Vue Router Configuration', () => {
   it('should have the correct route for home', () => {

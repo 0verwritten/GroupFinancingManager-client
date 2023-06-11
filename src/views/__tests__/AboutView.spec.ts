@@ -1,13 +1,12 @@
-import { shallowMount } from '@vue/test-utils'
-import AboutView from '@/views/AboutView.vue'
+import { mount, shallowMount } from '@vue/test-utils';
+import { describe, it, expect, vi } from 'vitest';
+import AboutView from '@/views/AboutView.vue';
 
+describe('AboutView', () => {
+  it('renders the correct message', () => {
+    const wrapper = shallowMount(AboutView);
+    const heading = wrapper.find('h1');
 
-describe('AboutView.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'This is an about page'
-    const wrapper = shallowMount(AboutView, {
-      props: { msg }
-    })
-    expect(wrapper.text()).toMatch(msg)
-  })
-})
+    expect(heading.text()).toBe('This is an about page');
+  });
+});

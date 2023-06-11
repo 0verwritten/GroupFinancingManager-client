@@ -35,7 +35,7 @@ import type { AccountClientService } from '@/services/account-client.service'
 import TheRoutedButton from '@/components/reusable/TheRoutedButton/TheRoutedButton.vue'
 import { TheButtonType } from '@/components/reusable/TheButton/TheButtonType.model'
 import type { GroupShortInfo } from '@/interfaces/group-short-info.interface'
-import { inject } from 'vue'
+import { inject, nextTick } from 'vue'
 
 let first_name = 'Loading...'
 let last_name = 'Loading...'
@@ -44,8 +44,12 @@ let group_list: GroupShortInfo[] = []
 
 const apiClient = inject<AccountClientService>('accountClient')!
 const fetchData = async () => {
+  const [profileResponse, groupsResponse] = await Promise.all([
+    apiClient.getUserProfile(),
+    apiClient.getGroupsList()
+  ]);
   {
-    const response = await apiClient.getUserProfile()
+    const response = profileResponse
     if (!response.isOk()) {
       console.error(response.error)
     } else {
@@ -55,9 +59,8 @@ const fetchData = async () => {
       email = data.email
     }
   }
-
   {
-    const response = await apiClient.getGroupsList()
+    const response = groupsResponse
     if (!response.isOk()) {
       console.error(response.error)
     } else {
@@ -67,5 +70,7 @@ const fetchData = async () => {
   }
 };
 
-fetchData();
+nextTick(async () => {
+  return fetchData()
+})
 </script>

@@ -45,7 +45,7 @@
 import DialogContainer from '@/components/reusable/DialogContainer/DialogContainer.vue'
 import { defineComponent, inject } from 'vue'
 import { useAuthStore } from '@/stores/authorization';
-import type { AuthClientService } from '@/services/auth-client-service';
+import type { AuthClientService } from '@/services/auth-client.service';
 import { TheButtonType } from '@/components/reusable/TheButton/TheButtonType.model';
 import TheButton from '@/components/reusable/TheButton/TheButton.vue';
 import router from '@/router';
@@ -81,7 +81,7 @@ export default defineComponent({
         return;        
       }
       this.error = '';
-      this.authStore!().setTokens(response.data);
+      // this.authStore!().setTokens(response.data);
       router.push({ path: '/app' });
     },
   },

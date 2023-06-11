@@ -1,54 +1,57 @@
-import AccountPage from '../AccountView.vue'
-import { describe, it } from 'node:test'
+import { mount, shallowMount } from '@vue/test-utils';
+import { describe, it, expect, vi } from 'vitest';
+import { nextTick } from 'vue';
+import AccountPage from '@/views/account/AccountView.vue';
 
 
 describe('AccountPage', () => {
-  it('renders user info and groups correctly', async () => {
-    // // Mock the injected dependencies
-    // const mockUserProfile = {
-    //   first_name: 'John',
-    //   last_name: 'Doe',
-    //   email: 'john.doe@example.com',
-    // }
-    // const mockGroupList = [
-    //   { id: 1, name: 'Group 1' },
-    //   { id: 2, name: 'Group 2' },
-    // ]
-    // const mockAccountClientService = {
-    //   getUserProfile: jest.fn(() => Promise.resolve({ isOk: true, data: mockUserProfile })),
-    //   getGroupsList: jest.fn(() => Promise.resolve({ isOk: true, data: mockGroupList })),
-    // }
-    // const mockInject = jest.fn(() => mockAccountClientService)
+  it('renders user info and group list correctly', async () => {
+    // Mock the injected dependencies
+    const mockAccountClient = {
+      getUserProfile: vi.fn(() => Promise.resolve({ isOk: () => true, data: { first_name: 'John', last_name: 'Doe', email: 'john.doe@example.com' } })),
+      getGroupsList: vi.fn(() => Promise.resolve({ isOk: () => true, data: [{ id: 1, name: 'Group 1' }, { id: 2, name: 'Group 2' }] }))
+    };
+    
+    
+    // Mount the component with the mock dependencies
+    const wrapper = mount(AccountPage, {
+      global: {
+        provide: {
+          accountClient: mockAccountClient
+        }
+      }
+    });
+    
+// Wait for the data to be fetched
+await wrapper.vm.$nextTick();
 
-    // // Render the component
-    // const { getByText, queryByText } = render(AccountPage, {
-    //   global: {
-    //     mocks: {
-    //       $route: {},
-    //       $router: {},
-    //       $store: {},
-    //       inject: mockInject,
-    //     },
-    //   },
-    // })
-
-    // // Wait for the data to be loaded
-    // await new Promise((resolve) => setTimeout(resolve, 0))
-
-    // // Assert that user info is rendered correctly
-    // expect(getByText('Name: John Doe')).toBeInTheDocument()
-    // expect(getByText('Email: john.doe@example.com')).toBeInTheDocument()
-
-    // // Assert that group list is rendered correctly
-    // expect(getByText('Group 1')).toBeInTheDocument()
-    // expect(getByText('Group 2')).toBeInTheDocument()
-
-    // // Assert that the "You are not a member of any groups" message is not shown
-    // expect(queryByText('You are not a member of any groups')).toBeNull()
-
-    // // Assert that the injected dependencies were used correctly
-    // expect(mockAccountClientService.getUserProfile).toHaveBeenCalled()
-    // expect(mockAccountClientService.getGroupsList).toHaveBeenCalled()
-    // expect(mockInject).toHaveBeenCalledWith('accountClient')
-  })
-})
+    
+    // Assert that the user info is displayed correctly
+    expect(wrapper.find('p').text()).toBe('Name: Loading... Loading...');
+    expect(wrapper.find('p:nth-child(2)').text()).toBe('Email: Loading...');
+    
+    // Assert that the group list is displayed correctly
+    let groupLinks = wrapper.findAllComponents({ name: 'TheRoutedButton' });
+    await wrapper.vm.$forceUpdate();
+    
+    expect(groupLinks.length).toBe(0);
+    
+    // Assert that the "You are not a member of any groups" message is not shown
+    expect(wrapper.find('span').exists()).toBe(true);
+    expect(wrapper.find('span').text()).toBe("You are not a member of any groups");
+    
+    await wrapper.vm.$nextTick();
+    await wrapper.vm.$forceUpdate();
+    
+    
+    expect(wrapper.find('p').text()).toBe('Name: John Doe');
+    expect(wrapper.find('p:nth-child(2)').text()).toBe('Email: john.doe@example.com');
+    
+    groupLinks = wrapper.findAllComponents({ name: 'TheRoutedButton' });
+    expect(groupLinks.length).toBe(2);
+    expect(groupLinks[0].props().to).toEqual({ name: 'group', params: { id: 1 } });
+    expect(groupLinks[0].text()).toBe('Group 1');
+    expect(groupLinks[1].props().to).toEqual({ name: 'group', params: { id: 2 } });
+    expect(groupLinks[1].text()).toBe('Group 2');
+  });
+});

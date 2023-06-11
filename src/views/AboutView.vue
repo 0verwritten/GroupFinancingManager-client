@@ -4,6 +4,13 @@
   </div>
 </template>
 
+<script lang="ts">
+export default {
+  name: 'AboutView',
+  // Add any additional component options or logic here
+}
+</script>
+
 <style>
 @media (min-width: 1024px) {
   .about {
