@@ -34,4 +34,16 @@ export class GroupClientService {
     public kickUser(groupId: number, userIdList: number[]): Promise<ApiResponse<Token>> {
         return this.apiClient.delete(`/group/${groupId}/kick`, { users: userIdList });
     }
+
+    public makePurchase(groupId: number, cost: number, name: string): Promise<ApiResponse<any>> {
+        return this.apiClient.post(`/group/${groupId}/purchase`, { cost, name });
+    }
+
+    public deletePurchase(groupId: number, purchaseId: number): Promise<ApiResponse<Token>> {
+        return this.apiClient.delete(`/group/${groupId}/purchase/${purchaseId}`);
+    }
+
+    // public makePayment(groupId: number, amount: number, description: string): Promise<ApiResponse<Token>> {
+    //     return this.apiClient.post(`/group/${groupId}/payment`, { amount, description });
+    // }
 }

@@ -27,6 +27,11 @@ const router = createRouter({
           component: () => import('@/views/group/GroupView.vue'),
         },
         {
+          name: 'makeTransfer',
+          path: 'group/:id/transfer',
+          component: () => import('@/views/group/CreateGroupTransactionView.vue'),
+        },
+        {
           name: 'join',
           path: 'join',
           component: () => import('@/views/group/JoinGroupView.vue'),
