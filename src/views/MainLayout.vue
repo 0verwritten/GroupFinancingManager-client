@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-container">
+  <div class="sidebar-container" v-bind:class="{'open': isSidebarOpen}">
     <div class="sidebar">
       <div class="logo">
         <img
@@ -60,7 +60,7 @@
           </TheButton>
         </li>
       </ul>
-      <button class="toggle-button">
+      <button class="toggle-button" @click.prevent="toggleSidebar()">
         <span></span>
         <span></span>
         <span></span>
@@ -80,8 +80,14 @@ import { TheButtonType } from '@/components/reusable/TheButton/TheButtonType.mod
 import { useAuthStore } from '@/stores/authorization';
 import router from '@/router';
 import TheButton from '@/components/reusable/TheButton/TheButton.vue';
+import { ref } from 'vue';
 
 const authStore = useAuthStore()!;
+const isSidebarOpen = ref(false);
+
+const toggleSidebar = () => {
+  isSidebarOpen.value = !isSidebarOpen.value;
+}
 
 const logout = () => {
   authStore().clearTokens();
